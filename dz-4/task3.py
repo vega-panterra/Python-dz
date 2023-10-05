@@ -17,19 +17,15 @@
 
 # Любое действие выводит сумму денег
 
-balance = 0
-transactions = []
+START_BALANCE = 0
+DEPOSIT_FACTOR = 50
+WITHDRAW_FACTOR = 50
+WITHDRAW_RATE = 0.015
+WITHDRAW_RATE_MIN = 30
+WITHDRAW_RATE_MAX = 600
+INTEREST_FREQUENCY = 3
+INTEREST_PERCENT = 0.003
+TRESHOLD_AMOUNT = 5_000_000
+WEALTH_TAX = 0.010
 
-def deposit(balance, amount):
-    if amount % 50 == 0:
-        balance += amount
-        transactions.append(f"Пополнение: +{amount} у.е.")
-        return balance
-    else:
-        print("Сумма пополнения должна быть кратной 50 у.е.")
-        return balance
-
-def withdraw(balance, amount):
-    global transactions
-    if amount % 50 == 0:
-        if balance >= amount
+balance = START_BALANCE
