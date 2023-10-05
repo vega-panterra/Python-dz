@@ -17,9 +17,19 @@
 
 # Любое действие выводит сумму денег
 
-from datetime import date
+balance = 0
+transactions = []
 
-summa_start = 0
-count = 0
-list_operation = []
-RICHLIMIT = 5_000_000
+def deposit(balance, amount):
+    if amount % 50 == 0:
+        balance += amount
+        transactions.append(f"Пополнение: +{amount} у.е.")
+        return balance
+    else:
+        print("Сумма пополнения должна быть кратной 50 у.е.")
+        return balance
+
+def withdraw(balance, amount):
+    global transactions
+    if amount % 50 == 0:
+        if balance >= amount
