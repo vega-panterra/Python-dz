@@ -1,21 +1,17 @@
 import logging
+import argparse
 
-logging.basicConfig(filename='logs.log', level=logging.INFO, encoding='utf-8',format='%(asctime)s - %(levelname)s - %(message)s')
 
-class InvalidTextError(Exception):
-    pass
+logging.basicConfig(filename='logs.log', level=logging.INFO, encoding='utf-8', format='%(asctime)s - %(levelname)s - %(message)s')
 
-class InvalidNumberError(Exception):
-    pass
 
 class Archive:
     def __init__(self, text, number):
         if not isinstance(text, str) or not text:
-            raise InvalidTextError(f"Неверный текст: {text}. Или текст должен быть непустой строкой.")
+            raise TypeError(f"Неверный текст: {text}. Текст должен быть непустой строкой.")
 
-        if not (isinstance(number, int) and number > 0) and not (isinstance(number, float) and number > 0):
-            logging.error(f"Ввод должен быть числового формата: {number}")
-            raise InvalidNumberError(f"Неверный номер: {number}. Число должно быть положительным целым числом или числом с плавающей запятой.")
+        if not isinstance(number, (int, float)) or not number:
+            raise TypeError(f"Неверный номер: {number}. Число должно быть положительным целым числом или числом с плавающей запятой.")
 
         self.text = text
         self.number = number
@@ -24,13 +20,22 @@ class Archive:
         logging.info(f"Текст {self.text} и номер {self.number}")
         return f"Текст {self.text} и номер {self.number}."
 
-try:
-    archive1 = Archive(42, 42)
-    print(archive1)
+def main():
+    parser = argparse.ArgumentParser(description="Создать экземпляр архива")
+    parser.add_argument("--text", type=str, help="Текст для архива")
+    parser.add_argument("--number", type=float, help="Номер для архива")
+    args = parser.parse_args()
 
-except InvalidTextError as e:
-    logging.error(f"Ввод должен быть текстового формата: {e}")
-    print(f"Ввод должен быть текстового формата: {e}")
-except TypeError as e:
-    logging.error(f"Ввод должен быть числового формата: {e}")
-    print(f"Ввод должен быть числового формата: {e}")
+    if args.text is not None and args.number is not None:
+        try:
+            archive = Archive(args.text, args.number)
+            print(archive)
+        except Exception as e:
+            logging.error(f"Ввод должен быть текстового формата: {e}")
+            print(f"Ввод должен быть текстового формата: {e}")
+        except Exception as e:
+            logging.error(f"Ввод должен быть числового формата: {e}")
+            print(f"Ввод должен быть числового формата: {e}")
+
+if __name__ == "__main__":
+    main()
