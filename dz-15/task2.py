@@ -34,3 +34,5 @@ except InvalidTextError as e:
 except TypeError as e:
     logging.error(f"Ввод числового формата: {e}")
     print(f"Ввод числового формата: {e}")
+
+    # 2023-11-22 11:39:18,702 - ERROR - Ввод текстового формата: Неверный текст: 42 или пустая строка.
