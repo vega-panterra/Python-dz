@@ -10,3 +10,5 @@ def my_func(storage, key, value=None):
 
 f={'f':'1', 'd':'3', 's':'5'}
 print (my_func (f, key='a', value=2))
+
+# ERROR:root:отсутствует ключ a в словаре {'f': '1', 'd': '3', 's': '5'}
